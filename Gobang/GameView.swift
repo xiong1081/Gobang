@@ -9,22 +9,23 @@
 import SwiftUI
 
 struct GameView: View {
-    var grid = GameGrid()
+    @EnvironmentObject var grid: GameGrid
     
     var body: some View {
-        VStack {
-            ForEach(0..<self.grid.rowCount, id: \.self) { i in
+        VStack(spacing: 0) {
+            ForEach(0..<self.grid.rowCount, id: \.self) { row in
                 HStack(spacing: 0) {
-                    ForEach(0..<self.grid.rowCount, id: \.self) { j in
+                    ForEach(0..<self.grid.rowCount, id: \.self) { column in
                         Button(action: {
-                            self.grid.items[i][j] = true
+                            self.grid.items[row][column].type = .black
                         }) {
-                            Text("")
-                                .cornerRadius(self.grid.sideLength/2)
-                                .background(self.grid.items[i][j] ? Color.black : Color.clear)
+                            Image.image(color: self.grid.items[row][column].color, size: self.grid.sideLength-8)
+                                .renderingMode(.original)
+                                .clipShape(Circle())
                         }
                             .frame(width: self.grid.sideLength, height: self.grid.sideLength)
-                            .background(Color(white: i%2==j%2 ? 0.9 : 0.98))
+                            .background(Color(white: row%2==column%2 ? 0.9 : 0.98))
+                            .disabled(self.grid.items[row][column].type != .none)
                     }
                 }
             }
