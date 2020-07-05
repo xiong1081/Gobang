@@ -18,6 +18,9 @@ struct GameView: View {
                     ForEach(0..<self.grid.rowCount, id: \.self) { column in
                         Button(action: {
                             self.grid.items[row][column].type = .black
+                            if self.grid.checkWin(row: row, column: column) {
+                                print("You Win!")
+                            }
                         }) {
                             Image.image(color: self.grid.items[row][column].color, size: self.grid.sideLength-8)
                                 .renderingMode(.original)
