@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum ItemType {
-    case none, black, white
+    case none, black, white, win
 }
 
 struct GridItem {
@@ -18,6 +18,7 @@ struct GridItem {
         switch type {
         case .black: return UIColor.black
         case .white: return UIColor.white
+        case .win: return UIColor.green
         default: return UIColor.clear
         }
     }
@@ -69,22 +70,26 @@ class GameGrid: ObservableObject {
         var count = 1
         var r = row - 1
         var c = column + 1
+        var win = false
         while checkItem(row: r, column: c) {
             r -= 1
             c += 1
             count += 1
-            if count >= 5 {
-                return true
-            }
+            win = count >= 5
         }
+        let sr = r + 1
+        let sc = c - 1
         r = row + 1
         c = column - 1
         while checkItem(row: r, column: c) {
             r += 1
             c -= 1
             count += 1
-            if count >= 5 {
-                return true
+            win = count >= 5
+        }
+        if win {
+            for i in 0..<count {
+                items[sr+i][sc-i].type = .win
             }
         }
         return false
@@ -94,43 +99,26 @@ class GameGrid: ObservableObject {
         var count = 1
         var r = row - 1
         var c = column - 1
+        var win = false
         while checkItem(row: r, column: c) {
             r -= 1
             c -= 1
             count += 1
-            if count >= 5 {
-                return true
-            }
+            win = count >= 5
         }
+        let sr = r + 1
+        let sc = c + 1
         r = row + 1
         c = column + 1
         while checkItem(row: r, column: c) {
             r += 1
             c += 1
             count += 1
-            if count >= 5 {
-                return true
-            }
+            win = count >= 5
         }
-        return false
-    }
-    
-    private func checkWinVertical(row: Int, column: Int) -> Bool {
-        var count = 1
-        var c = column - 1
-        while checkItem(row: row, column: c) {
-            c -= 1
-            count += 1
-            if count >= 5 {
-                return true
-            }
-        }
-        c = column + 1
-        while checkItem(row: row, column: c) {
-            c += 1
-            count += 1
-            if count >= 5 {
-                return true
+        if win {
+            for i in 0..<count {
+                items[sr+i][sc+i].type = .win
             }
         }
         return false
@@ -138,23 +126,52 @@ class GameGrid: ObservableObject {
     
     private func checkWinHorizontal(row: Int, column: Int) -> Bool {
         var count = 1
+        var c = column - 1
+        var win = false
+        while checkItem(row: row, column: c) {
+            c -= 1
+            count += 1
+            win = count >= 5
+        }
+        let sc = c + 1
+        c = column + 1
+        while checkItem(row: row, column: c) {
+            c += 1
+            count += 1
+            win = count >= 5
+        }
+        let ec = c - 1
+        if win {
+            for c in sc...ec {
+                items[row][c].type = .win
+            }
+        }
+        return win
+    }
+    
+    private func checkWinVertical(row: Int, column: Int) -> Bool {
+        var count = 1
         var r = row - 1
+        var win = false
         while checkItem(row: r, column: column) {
             r -= 1
             count += 1
-            if count >= 5 {
-                return true
-            }
+            win = count >= 5
         }
+        let sr = r + 1
         r = row + 1
         while checkItem(row: r, column: column) {
             r += 1
             count += 1
-            if count >= 5 {
-                return true
+            win = count >= 5
+        }
+        let er = r - 1
+        if win {
+            for r in sr...er {
+                items[r][column].type = .win
             }
         }
-        return false
+        return win
     }
     
     private func checkItem(row: Int, column: Int) -> Bool {
