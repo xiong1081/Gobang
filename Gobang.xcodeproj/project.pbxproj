@@ -12,6 +12,7 @@
 		0953624024B00FAA00375D8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0953623F24B00FAA00375D8C /* Assets.xcassets */; };
 		0953624624B00FAA00375D8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0953624424B00FAA00375D8C /* LaunchScreen.storyboard */; };
 		0953625224B094F100375D8C /* GameGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0953625124B094F100375D8C /* GameGrid.swift */; };
+		09566B8824E6B09000271FC5 /* NetworkBroswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09566B8724E6B09000271FC5 /* NetworkBroswer.swift */; };
 		09BAF45A24D55A8400E73071 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF45924D55A8400E73071 /* GameViewController.swift */; };
 		09BAF46024D570D000E73071 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF45F24D570D000E73071 /* RootViewController.swift */; };
 		09BAF46E24D704A200E73071 /* MasterViewControllerHostViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09BAF46D24D704A200E73071 /* MasterViewControllerHostViews.xib */; };
@@ -19,7 +20,7 @@
 		09D0BC7924D4FC26004A610C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09D0BC7824D4FC26004A610C /* Main.storyboard */; };
 		09D0BC7D24D4FE72004A610C /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D0BC7C24D4FE72004A610C /* MasterViewController.swift */; };
 		09DBF78B24B0BC21000954C9 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBF78A24B0BC21000954C9 /* Extension.swift */; };
-		09DBF79024B1F6EF000954C9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBF78F24B1F6EF000954C9 /* NetworkManager.swift */; };
+		09DBF79024B1F6EF000954C9 /* NetworkListner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBF78F24B1F6EF000954C9 /* NetworkListner.swift */; };
 		09DBF79224B1FE63000954C9 /* PeerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBF79124B1FE63000954C9 /* PeerConnection.swift */; };
 		09DBF79624B20BA3000954C9 /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DBF79524B20BA3000954C9 /* GameProtocol.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		0953624524B00FAA00375D8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0953624724B00FAA00375D8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0953625124B094F100375D8C /* GameGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGrid.swift; sourceTree = "<group>"; };
+		09566B8724E6B09000271FC5 /* NetworkBroswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkBroswer.swift; sourceTree = "<group>"; };
 		09BAF45924D55A8400E73071 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		09BAF45F24D570D000E73071 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		09BAF46D24D704A200E73071 /* MasterViewControllerHostViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewControllerHostViews.xib; sourceTree = "<group>"; };
@@ -39,7 +41,7 @@
 		09D0BC7824D4FC26004A610C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		09D0BC7C24D4FE72004A610C /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		09DBF78A24B0BC21000954C9 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		09DBF78F24B1F6EF000954C9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		09DBF78F24B1F6EF000954C9 /* NetworkListner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkListner.swift; sourceTree = "<group>"; };
 		09DBF79124B1FE63000954C9 /* PeerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnection.swift; sourceTree = "<group>"; };
 		09DBF79524B20BA3000954C9 /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,7 +97,8 @@
 		09DBF78C24B1F235000954C9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				09DBF78F24B1F6EF000954C9 /* NetworkManager.swift */,
+				09DBF78F24B1F6EF000954C9 /* NetworkListner.swift */,
+				09566B8724E6B09000271FC5 /* NetworkBroswer.swift */,
 				09DBF79124B1FE63000954C9 /* PeerConnection.swift */,
 				09DBF79524B20BA3000954C9 /* GameProtocol.swift */,
 			);
@@ -179,12 +182,13 @@
 				0953623A24B00FA800375D8C /* AppDelegate.swift in Sources */,
 				09BAF46024D570D000E73071 /* RootViewController.swift in Sources */,
 				09DBF79624B20BA3000954C9 /* GameProtocol.swift in Sources */,
+				09566B8824E6B09000271FC5 /* NetworkBroswer.swift in Sources */,
 				09D0BC7D24D4FE72004A610C /* MasterViewController.swift in Sources */,
 				0953623C24B00FA800375D8C /* SceneDelegate.swift in Sources */,
 				0953625224B094F100375D8C /* GameGrid.swift in Sources */,
 				09DBF78B24B0BC21000954C9 /* Extension.swift in Sources */,
 				09DBF79224B1FE63000954C9 /* PeerConnection.swift in Sources */,
-				09DBF79024B1F6EF000954C9 /* NetworkManager.swift in Sources */,
+				09DBF79024B1F6EF000954C9 /* NetworkListner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

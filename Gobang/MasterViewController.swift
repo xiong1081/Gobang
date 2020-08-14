@@ -14,6 +14,7 @@ class MasterViewController: UIViewController {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var tableView: UITableView!
+    var results = [NWBrowser.Result]()
     
     @IBOutlet var hostView: UIView!
     @IBOutlet var textField: UITextField!
@@ -22,23 +23,39 @@ class MasterViewController: UIViewController {
     @IBOutlet var cancelView: UIView!
     @IBOutlet var hostingLabel: UILabel!
     
-    var cancellable: Cancellable?
-    
+    var cancellable0: Cancellable?
+    var cancellable1: Cancellable?
+    var cancellable2: Cancellable?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: nil, queue: nil) { (notif) in
+        initSubviews()
+        NetworkBroswer.shared.browser.start(queue: .main)
+        cancellable0 = NetworkListner.shared.stateSubject.sink { [weak self] state in
+            self?.refresh(state)
+        }
+        cancellable1 = NetworkBroswer.shared.resultSubject.sink { [weak self] results in
+            self?.results = Array(results)
+            self?.tableView.reloadData()
+        }
+        cancellable2 = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification).sink { (notif) in
             self.hostButton.isEnabled = self.textField.text?.count != 0
         }
-        initSubviews()
-        cancellable = NetworkManager.shared.listenerStateSubject.sink { (state) in
-            if state == .ready {
-                self.hostView.removeFromSuperview()
-                self.hostingLabel.text = "\(NetworkManager.shared.listener.port!.rawValue)"
-                self.stackView.insertArrangedSubview(self.cancelView, at: 1)
-             } else {
-                self.cancelView.removeFromSuperview()
-                self.stackView.insertArrangedSubview(self.hostView, at: 1)
-             }
+    }
+    
+    func refresh(_ state: NWListener.State) {
+        if state == .ready {
+           self.hostView.removeFromSuperview()
+            if let service = NetworkListner.shared.listener.service,
+                let name = service.name {
+                self.hostingLabel.text = "\(name)"
+            } else {
+                self.hostingLabel.text = "\(NetworkListner.shared.listener.port!.rawValue)"
+            }
+           self.stackView.insertArrangedSubview(self.cancelView, at: 1)
+        } else {
+           self.cancelView.removeFromSuperview()
+           self.stackView.insertArrangedSubview(self.hostView, at: 1)
         }
     }
     
@@ -50,36 +67,31 @@ class MasterViewController: UIViewController {
         hostView.addConstraint(hostConstraint)
         let cancelConstraint = NSLayoutConstraint(item: cancelView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 44)
         cancelView.addConstraint(cancelConstraint)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
 
     @IBAction func tapHostButton(_ sender: UIButton) {
         view.endEditing(true)
-        NetworkManager.shared.listener.start(queue: .main)
+        NetworkListner.shared.listener.start(queue: .main)
     }
 
     @IBAction func tapCancelButton(_ sender: UIButton) {
     }
-    
-    // MARK: - UITableViewDataSource
-    
-    
-    
-    // MARK: UITableViewDelegate
-    
     
 }
 
 extension MasterViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        default:
-            return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        if case let NWEndpoint.service(name, _, _, _) = results[indexPath.row].endpoint {
+            cell.textLabel?.text = name
         }
+        return cell
     }
     
 }
