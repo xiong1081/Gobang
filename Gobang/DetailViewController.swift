@@ -1,21 +1,21 @@
 //
-//  GameViewController.swift
+//  DetailViewController.swift
 //  Gobang
 //
-//  Created by 李招雄 on 2020/8/1.
+//  Created by 李招雄 on 2020/8/15.
 //  Copyright © 2020 李招雄. All rights reserved.
 //
 
 import UIKit
 
-class GameViewController: UIViewController {
+class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
     }
-    
+
 
     /*
     // MARK: - Navigation

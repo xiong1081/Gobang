@@ -26,20 +26,25 @@ class MasterViewController: UIViewController {
     var cancellable0: Cancellable?
     var cancellable1: Cancellable?
     var cancellable2: Cancellable?
+    var cancellable3: Cancellable?
+    var cancellable4: Cancellable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initSubviews()
-        NetworkBroswer.shared.browser.start(queue: .main)
+        NetworkBrowser.shared.browser.start(queue: .main) 
         cancellable0 = NetworkListner.shared.stateSubject.sink { [weak self] state in
             self?.refresh(state)
         }
-        cancellable1 = NetworkBroswer.shared.resultSubject.sink { [weak self] results in
+        cancellable1 = NetworkBrowser.shared.resultSubject.sink { [weak self] results in
             self?.results = Array(results)
             self?.tableView.reloadData()
         }
-        cancellable2 = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification).sink { (notif) in
-            self.hostButton.isEnabled = self.textField.text?.count != 0
+        cancellable3 = NetworkListner.shared.connectSubject.sink { connection in
+//            self.present(GameViewController(), animated: true, completion: nil)
+        }
+        cancellable4 = textField.publisher(for: \.text).sink { text in
+            self.hostButton.isEnabled = text?.count != 0
         }
     }
     
@@ -72,7 +77,7 @@ class MasterViewController: UIViewController {
 
     @IBAction func tapHostButton(_ sender: UIButton) {
         view.endEditing(true)
-        NetworkListner.shared.listener.start(queue: .main)
+        NetworkListner.shared.start(name: textField.text!)
     }
 
     @IBAction func tapCancelButton(_ sender: UIButton) {
@@ -92,6 +97,26 @@ extension MasterViewController: UITableViewDataSource {
             cell.textLabel?.text = name
         }
         return cell
+    }
+    
+}
+
+extension MasterViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+        let endpoint = results[indexPath.row].endpoint
+        NetworkConnection.shared.connect(endpoint: endpoint) {
+            var viewController: UIViewController = DetailViewController()
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                if case let NWEndpoint.service(name, _, _, _) = endpoint {
+                    viewController.navigationItem.title = name
+                }
+                viewController.navigationItem.backBarButtonItem = self.splitViewController?.displayModeButtonItem
+                viewController = UINavigationController(rootViewController: viewController)
+            }
+            self.splitViewController?.showDetailViewController(viewController, sender: nil)
+        }
     }
     
 }

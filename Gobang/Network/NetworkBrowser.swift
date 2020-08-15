@@ -9,9 +9,9 @@
 import Network
 import Combine
 
-class NetworkBroswer {
+class NetworkBrowser {
     
-    static let shared = NetworkBroswer()
+    static let shared = NetworkBrowser()
     
     let resultSubject = CurrentValueSubject<Set<NWBrowser.Result>, Never>(Set())
     
