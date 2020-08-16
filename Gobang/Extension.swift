@@ -18,8 +18,8 @@ extension NWParameters {
         tcpOptions.keepaliveIdle = 2
         self.init(tls: NWParameters.tlsOptions(passcode: passcode), tcp: tcpOptions)
         self.includePeerToPeer = true
-        let gameOptions = NWProtocolFramer.Options(definition: GameProtocol.definition)
-        self.defaultProtocolStack.applicationProtocols.insert(gameOptions, at: 0)
+//        let gameOptions = NWProtocolFramer.Options(definition: GameProtocol.definition)
+//        self.defaultProtocolStack.applicationProtocols.insert(gameOptions, at: 0)
     }
 
     // Create TLS options using a passcode to derive a pre-shared key.

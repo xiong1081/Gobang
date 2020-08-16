@@ -1,26 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zz7-yz-3Ce">
-    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TOl-jI-sbm">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Gobang-->
         <scene sceneID="AqC-BD-3Sx">
             <objects>
-                <viewController id="Zz7-yz-3Ce" customClass="RootViewController" customModule="Gobang" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Zz7-yz-3Ce" customClass="ViewController" customModule="Gobang" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WyU-Iy-QBr">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="g5Z-XJ-eYt">
+                                <rect key="frame" x="149" y="303.5" width="77" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYn-Sn-zyG">
+                                        <rect key="frame" x="0.0" y="0.0" width="77" height="30"/>
+                                        <state key="normal" title="Host Game"/>
+                                        <connections>
+                                            <segue destination="ult-Aw-3dP" kind="show" id="7Fz-WB-57V"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNc-Aj-A3a">
+                                        <rect key="frame" x="0.0" y="30" width="77" height="30"/>
+                                        <state key="normal" title="Join Game"/>
+                                        <connections>
+                                            <segue destination="m8h-cV-5B2" kind="show" id="ezX-ws-LTx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="g5Z-XJ-eYt" firstAttribute="centerY" secondItem="WyU-Iy-QBr" secondAttribute="centerY" id="Oc9-HC-cKl"/>
+                            <constraint firstItem="g5Z-XJ-eYt" firstAttribute="centerX" secondItem="WyU-Iy-QBr" secondAttribute="centerX" id="tbv-au-VSs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="rsZ-wp-enq"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Gobang" id="fXN-l4-j0c"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PK1-H1-NSy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="-152"/>
+            <point key="canvasLocation" x="1144.8" y="-152.47376311844079"/>
+        </scene>
+        <!--Join Game-->
+        <scene sceneID="YZv-8X-U4Y">
+            <objects>
+                <viewController id="m8h-cV-5B2" customClass="JoinViewController" customModule="Gobang" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="czX-0e-g0Z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-sh-Fvr">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="m8h-cV-5B2" id="6rG-va-Hbm"/>
+                                    <outlet property="delegate" destination="m8h-cV-5B2" id="OvD-Wk-6Gc"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="x0y-sh-Fvr" firstAttribute="leading" secondItem="ZyN-Q7-KD1" secondAttribute="leading" id="80T-f3-Cve"/>
+                            <constraint firstItem="x0y-sh-Fvr" firstAttribute="top" secondItem="ZyN-Q7-KD1" secondAttribute="top" id="Ea1-XJ-BL3"/>
+                            <constraint firstItem="ZyN-Q7-KD1" firstAttribute="bottom" secondItem="x0y-sh-Fvr" secondAttribute="bottom" id="Jeq-yV-mJ0"/>
+                            <constraint firstItem="ZyN-Q7-KD1" firstAttribute="trailing" secondItem="x0y-sh-Fvr" secondAttribute="trailing" id="x0O-yX-YSO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ZyN-Q7-KD1"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Join Game" id="Am3-0T-nvk"/>
+                    <connections>
+                        <outlet property="tableView" destination="x0y-sh-Fvr" id="R7o-Ys-CGb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hhm-jT-qH3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2066" y="228"/>
+        </scene>
+        <!--Host Game-->
+        <scene sceneID="ddo-aC-QDq">
+            <objects>
+                <viewController id="ult-Aw-3dP" customClass="HostViewController" customModule="Gobang" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dZA-MV-Jgi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dpg-c1-REN">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ult-Aw-3dP" id="FKb-Dp-wnI"/>
+                                    <outlet property="delegate" destination="ult-Aw-3dP" id="p4J-U6-NP9"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="dpg-c1-REN" firstAttribute="top" secondItem="9nQ-sF-wQb" secondAttribute="top" id="CqF-Bl-vg1"/>
+                            <constraint firstItem="dpg-c1-REN" firstAttribute="leading" secondItem="9nQ-sF-wQb" secondAttribute="leading" id="GVL-58-1jZ"/>
+                            <constraint firstItem="9nQ-sF-wQb" firstAttribute="bottom" secondItem="dpg-c1-REN" secondAttribute="bottom" id="NED-da-zmH"/>
+                            <constraint firstItem="9nQ-sF-wQb" firstAttribute="trailing" secondItem="dpg-c1-REN" secondAttribute="trailing" id="kd3-rt-vvy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9nQ-sF-wQb"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Host Game" id="VCj-Vb-Xe1"/>
+                    <connections>
+                        <outlet property="tableView" destination="dpg-c1-REN" id="9hf-Rx-VmN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kDe-dG-FyV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2055" y="-495"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dlW-MA-S6V">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TOl-jI-sbm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jGC-Tg-u3S">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Zz7-yz-3Ce" kind="relationship" relationship="rootViewController" id="5VP-qq-Ag3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nlK-2R-CHv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="205.59999999999999" y="-152.47376311844079"/>
         </scene>
     </scenes>
 </document>

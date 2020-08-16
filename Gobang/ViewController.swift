@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  RootViewController.swift
 //  Gobang
 //
 //  Created by 李招雄 on 2020/8/1.
@@ -8,12 +8,11 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        navigationItem.title = "Game"
+        
     }
-    
+
 }
